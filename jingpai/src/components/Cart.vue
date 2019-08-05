@@ -22,6 +22,7 @@
               :class="{'step-item':1,'active': ishover}"
               @mouseenter="mouseent"
               @mouseleave="mousele"
+              @click="next"
             >
               <a>
                 <i>2</i>填写和提交订单信息
@@ -61,9 +62,9 @@
           </thead>
           <!-- 购物车商品 -->
           <tbody class="cart-item">
-            <tr class="cart-product last" v-for="(item) in carlist" :key="item._id">
+            <tr class="cart-product last" v-for="(item) in carlist" :key="item.gid">
               <td colspan="2">
-                <van-card :desc="item.name" :thumb="item.img" />
+                <van-card :desc="item.title" :thumb="item.img" />
               </td>
               <!-- 价格 -->
               <td class="p-price" v-text="`￥${item.price}`"></td>
@@ -72,18 +73,21 @@
                 <van-stepper
                   v-model="item.num"
                   min="1"
-                  :max="item.stork"
+                  :max="item.kuncun"
                   button-size="22"
                   nput-width="28"
+                  @plus="plus(item.num,item.gid)"
+                  @minus="minus(item.num,item.gid)"
+                  @blur="blur(item.num,item.gid)"
                 />
               </td>
               <td class="p-discount" v-text="`￥0.00`"></td>
-              <td class="p-integral" v-text="`218`"></td>
+              <td class="p-integral" v-text="item.price*item.num"></td>
               <td class="p-subtotal" v-text="`￥${item.price*item.num}`"></td>
               <td class="p-action">
                 <a class="btn-fav" rel="_addfav_" data-gid="204">收藏</a>
                 <i>|</i>
-                <a class="btn-delete">移除</a>
+                <a class="btn-delete" @click="del(item.gid)">移除</a>
               </td>
             </tr>
           </tbody>
@@ -162,7 +166,12 @@
               </td>
               <td colspan="4" class="cart-right">
                 <a href="./" class="btn-link">继续购物</a>
-                <button type="submit" class="btn btn-import btn-huge action-settle" rel="_request">
+                <button
+                  type="submit"
+                  class="btn btn-import btn-huge action-settle"
+                  rel="_request"
+                  @click="next"
+                >
                   <span>下单结算</span>
                   <i></i>
                 </button>
@@ -184,28 +193,30 @@ export default {
       toggle: true,
       total: 0,
       ishover: false,
-      carlist: [
-        {
-          _id: 1,
-          name: "劲牌 45度劲牌纯谷酒750mL*6 光瓶箱装",
-          price: 222,
-          stork: 10,
-          num: 1,
-          img:
-            "http://www.jingpai.com/public/images/4e/68/dc/6e8a3a9539ab6db2590eab5fb4bff8385c92c308.jpg"
-        },
-        {
-          _id: 2,
-          name: "劲牌 45度劲牌纯谷酒750mL*6",
-          price: 1024,
-          stork: 9,
-          num: 3,
-          img:
-            "http://www.jingpai.com/public/images/4e/68/dc/6e8a3a9539ab6db2590eab5fb4bff8385c92c308.jpg"
-        }
-      ]
+      carlist: [],
+      tel: ""
     };
   },
+  async created() {
+    // let tel=localStorage.getItem('tel');
+    let tel = 135;
+    this.tel = tel;
+    let cardata = await this.$axios("http://localhost:3000/car/car", {
+      params: {
+        tel
+      }
+    });
+    cardata.data.forEach(async item => {
+      let good = await this.$axios("http://localhost:3000/car/carlist", {
+        params: {
+          gid: item.goodid
+        }
+      });
+      good.data[0].num = item.num;
+      this.carlist.push(good.data[0]);
+    });
+  },
+
   methods: {
     change() {
       this.toggle = !this.toggle;
@@ -215,6 +226,52 @@ export default {
     },
     mousele() {
       this.ishover = false;
+    },
+    // 数量加
+    plus(num, gid) {
+      this.$axios("http://localhost:3000/car/update", {
+        params: {
+          num: num + 1,
+          gid,
+          tel: this.tel
+        }
+      });
+    },
+    minus(num, gid) {
+      this.$axios("http://localhost:3000/car/update", {
+        params: {
+          num: num - 1,
+          gid,
+          tel: this.tel
+        }
+      });
+    },
+    blur(num, gid) {
+      this.$axios("http://localhost:3000/car/update", {
+        params: {
+          num: num,
+          gid,
+          tel: this.tel
+        }
+      });
+    },
+    //路由跳转
+    next() {
+      this.$store.dispatch("setCarlist", this.carlist);
+      this.$router.push({ name: "car2" });
+    },
+    // 移除商品
+
+    async del(id) {
+      console.log(id);
+      let del = this.$axios("http://localhost:3000/car/del", {
+        params: {
+          gid: id
+        }
+      });
+      // this.carlist = this.$store.getters.getCarlist;
+      this.carlist = this.carlist.filter(item => item.gid != id);
+      console.log(this.carlist.filter(item => item.gid != id));
     }
   },
   computed: {

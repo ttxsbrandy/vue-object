@@ -8,6 +8,8 @@
   },
   "dependencies": {
     "core-js": "^2.6.5",
+    "iview": "^1.0.1",
+    "iview-loader": "^1.2.2",
     "node-sass": "^4.12.0",
     "register-service-worker": "^1.6.2",
     "vant": "^2.1.1",
