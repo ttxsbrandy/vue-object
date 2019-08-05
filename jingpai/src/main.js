@@ -3,6 +3,7 @@ import App from './App.vue'
 import router from './routers/router'
 import store from './stores/store'
 import './registerServiceWorker'
+import './base.css'
 
 
 import axios from 'axios'

@@ -3,5 +3,5 @@
 // 状态===仓库的值
 
 export default {
-   
+    
 }
