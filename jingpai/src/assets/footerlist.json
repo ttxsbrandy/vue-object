@@ -1,0 +1,22 @@
+[
+    {
+        "imgs":"http://www.jingpai.com/public/images/fb/70/1a/74e1ec81b8eb94ac30ece8233e61eacad54ad3cf.png?1465787377",
+        "dts":"购物指南",
+        "dds":["关于我们","售后服务","购物流程","积分政策"]
+    },
+    {
+        "imgs":"http://www.jingpai.com/public/images/bd/d6/b3/62a0b742f2e5d80dfd4423b85d0e01f1536f2200.png?1465787391",
+        "dts":"支付方式",
+        "dds":["第三方支付","银联支付","网银支付","发票制度"]
+    },
+    {
+        "imgs":"http://www.jingpai.com/public/images/62/a9/39/c1189f16d93bd58072db2da89d0b464c906a4368.png?1465787406",
+        "dts":"配送说明",
+        "dds":["配送时间","配送范围","配送费用","验货签收"]
+    },
+    {
+        "imgs":"http://www.jingpai.com/public/images/5f/c4/f1/ae2216356d0ae003be65902e01045d864b208bc2.png?1465787419",
+        "dts":"服务保障",
+        "dds":["正品保障","隐私保证","物流查询","联系我们"]
+    }
+]
