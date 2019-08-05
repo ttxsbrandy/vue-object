@@ -70,9 +70,6 @@
                 show: false,
                 telok: false,
                 showok:false,
-                
-
-
 
             }
         },
@@ -80,7 +77,7 @@
             async gettel() {
               
                 if (this.tel) {
-                    var str = await this.$axios(`http://localhost:3300/login/tel`, {
+                    var str = await this.$axios(`http://10.3.132.145:3300/login/tel`, {
                         params: {
                             tel: this.tel
                         }
@@ -102,7 +99,7 @@
                 if (this.pwd) {
                     if (this.telok) {
                         var xhr = new XMLHttpRequest()
-                        xhr.open('get', `http://localhost:3300/login/pwd?tel=${this.tel}&pwd=${this.pwd}`)
+                        xhr.open('get', `http://10.3.132.145:3300/login/pwd?tel=${this.tel}&pwd=${this.pwd}`)
                         xhr.send()
                         xhr.onreadystatechange = () => {
                             if (xhr.readyState == 4) {

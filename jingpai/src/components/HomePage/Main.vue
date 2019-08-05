@@ -53,7 +53,6 @@
         },async created() {
             let typeList = await this.$axios("http://localhost:3000/typeList/find");
                 this.typeList=typeList.data;
-                console.log(this.typeList);
         }
     }
 </script>

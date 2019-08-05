@@ -141,7 +141,7 @@
                 if (this.phoneRegex.test(this.telphone)) {
                     // this.phoneshow = false;
 
-                    let data = await this.$axios('http://localhost:3300/reg/tel', {
+                    let data = await this.$axios('http://10.3.132.145:3300/reg/tel', {
                         params: {
                             tel: this.telphone
                         }
@@ -173,7 +173,7 @@
             // 用户名验证
             async confirmName() {
                 if (this.name) {
-                    let data = await this.$axios('http://localhost:3300/reg/name', {
+                    let data = await this.$axios('http://10.3.132.145:3300/reg/name', {
                         params: {
                             name: this.name
                         }
@@ -218,7 +218,7 @@
             async sub() {
                 if (this.phoneRegex.test(this.telphone) && this.isok && this.nameok && this.telok) {
 
-                    let data = await this.$axios('http://localhost:3300/reg/add', {
+                    let data = await this.$axios('http://10.3.132.145:3300/reg/add', {
                         params: {
                             tel: this.telphone,
                             pwd: this.password,

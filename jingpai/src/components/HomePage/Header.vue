@@ -19,8 +19,8 @@
                         <li id="log">
                             <img src="http://www.jingpai.com/themes/shopex_D/widgets/order_members/images/icon_member.png"
                                 alt="">
-                            <span id="login">登录</span>
-                            <span id="register">注册</span>
+                            <span id="login" @click="toLog()">登录</span>
+                            <span id="register" @click="toReg()">注册</span>
                         </li>
                         <div class="line"></div>
                         <li>
@@ -93,11 +93,11 @@
         <nav>
             <div class="content">
                 <dl id="goods">
-                    <dt class="allgoods">
+                    <dt class="allgoods" @mouseenter="listShow" @mouseleave="listShow">
                         <span>全部商品</span>
                         <img src="http://www.jingpai.com/themes/shopex_D/widgets/category/images/icon_arrow.png" alt="">
-                        <div id="list-type" v-show="listShow">
-                            <dl v-for="(t,index) in typeList" :key="index" class="clearfix" >
+                        <div id="list-type" v-show="show">
+                            <dl v-for="(t,index) in typeList" :key="index" class="clearfix">
                                 <dt v-text="t.dts"></dt>
                                 <dd v-for=" (d,index) in t.dds" v-text="d"></dd>
                             </dl>
@@ -126,12 +126,20 @@
         data() {
             return {
                 typeList,
-                listShow:false,
-                cartNum:0
+                show: false,
+                cartNum: 0
             }
         },
-        methods:{
-            
+        methods: {
+            listShow() {
+                this.show = !this.show;
+            },
+            toLog() {
+                this.$router.push("/login");
+            },
+            toReg() {
+                this.$router.push("/reg");
+            }
         }
     }
 </script>
@@ -168,9 +176,11 @@
         margin-left: 10px;
         line-height: 30px;
     }
-    header #header-right ul li{
+
+    header #header-right ul li {
         cursor: pointer;
     }
+
     header #header-right ul #log img {
         margin: 8px 10px;
         float: left;
@@ -388,17 +398,20 @@
         background: rgba(122, 14, 20, .6)
     }
 
-    nav #goods #shouye{
+    nav #goods #shouye {
         position: relative;
     }
-    nav #goods #shouye img{
+
+    nav #goods #shouye img {
         position: absolute;
         margin-top: -10px;
     }
-    nav #goods #huiyuan{
+
+    nav #goods #huiyuan {
         position: relative;
     }
-    nav #goods #huiyuan img{
+
+    nav #goods #huiyuan img {
         position: absolute;
         margin-top: -10px;
     }
@@ -410,7 +423,7 @@
         left: 0px;
         width: 240px;
         height: 450px;
-        background: rgba(255,255,255,.8);
+        background: rgba(255, 255, 255, .8);
         z-index: 999;
     }
 
@@ -429,10 +442,10 @@
         cursor: pointer;
     }
 
-    #list-type dt:hover{
+    #list-type dt:hover {
         text-decoration: underline;
         text-decoration-color: #0563c3;
-        
+
     }
 
     #list-type dl dd {
