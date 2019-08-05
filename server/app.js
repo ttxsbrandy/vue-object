@@ -11,7 +11,7 @@ var typeListRouter = require('./routes/typeList');
 
 var loginRouter = require('./routes/login');
 var regRouter = require('./routes/reg');
-
+var duanRouter = require('./routes/duanxin');
 var app = express();
 
 // view engine setup
@@ -36,7 +36,7 @@ app.use('/car', carRouter);
 app.use('/typeList', typeListRouter);
 app.use('/login', loginRouter);
 app.use('/reg', regRouter);
-
+app.use('/duan', duanRouter);
 
 
 

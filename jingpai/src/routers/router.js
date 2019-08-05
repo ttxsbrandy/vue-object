@@ -44,6 +44,11 @@ export default new Router({
       path: '/reg',
       name: 'reg',
       component: () => import('../views/reg.vue')
+    },
+    {
+      path:'/duan',
+      name:'duan',
+      component:()=>import('../views/duanxin.vue')
     }
   ]
 })
