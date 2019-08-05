@@ -2,15 +2,15 @@
 
     <div class="body">
         <header>
-            <img alt="" src="https://cas.jingpai.com/tpcas/Public/images/headerImg.png" style="width:100%;padding-top: 30px;height:80px;"
-                id="headImg-pc">
-          
+            <img alt="" src="https://cas.jingpai.com/tpcas/Public/images/headerImg.png"
+                style="width:100%;padding-top: 30px;height:80px;" id="headImg-pc">
+
         </header>
 
         <div class="container">
             <div>
                 <form action="" method="get" class="forget-pwd">
-                 
+
 
                     <div class="clears"></div>
 
@@ -19,85 +19,61 @@
 
                         <dt><span class="required" style="color: red;">*</span>手机号：</dt>
                         <dd>
-                            <input type="text" id="telphone" placeholder="请输入您的手机号">
-                            <p class="phoneTip" style="">
+                            <input type="text" id="telphone" placeholder="请输入您的手机号" v-model="telphone"
+                                @blur="confirmTel">
+                            <p v-show="phoneshow" v-text="phonetext" :style="show?{color:'#195'}: {color:'red'}">
                                 手机号格式不正确</p>
                         </dd>
                         <div class="clears"></div>
                     </dl>
-                    <dl class="sel-yzsj">
-                        <dt><span class="required" style="color: red;">*</span>图形验证码：</dt>
+                    <dl class="sel-yzsj" id="sel-yzsj">
+                        <dt><span class="required" style="color: red;">*</span>验证码：</dt>
                         <dd>
-                            <input type="text" placeholder="请输入图形验证码" id="validateCode" name="validateCode">
-                            <img style="cursor: pointer; vertical-align:middle;" title="刷新验证码"
-                                src="/tpcas/index.php/Home/Index/verify?time=0.7853029156465678" id="verifyImg"
-                                onclick="freshVerify()">
+                            <input type="text" placeholder="请输入图形验证码" id="validateCode" name="validateCode"
+                                @blur="verifyNnm" v-model="validateCode">
+                            <!-- <img style="cursor: pointer; vertical-align:middle;" title="刷新验证码" :src="img" id="verifyImg"
+                                @click="freshVerify()"> -->
+                            <span v-text="verifytext" @click="btntext" id="random"></span>
+                            <p v-text="num" :style="shownum?{color:'#195'}: {color:'red'}"></p>
                         </dd>
                         <div class="clears"></div>
                     </dl>
                     <dl>
-                        <dt><span class="required" style="color: red;">*</span>短信验证码：</dt>
+                        <dt><span class="required" style="color: red;">*</span>用户名：</dt>
                         <dd>
-                            <input type="text" id="smsCode" placeholder="请输入短信验证码"> <input id="sendsmsCode"
-                                type="button" value="获取验证码" onclick="sendCode(this)"
-                                style="height: 30px; background: #e4e4e4; ">
+                            <input type="text" id="smsCode" placeholder="请输入用户名" style="width:220px" v-model="name"
+                                @blur="confirmName">
+                            <p v-text="textname" :style="showname?{color:'#195'}: {color:'red'}"></p>
                         </dd>
                         <div class="clears"></div>
                     </dl>
                     <dl>
                         <dt><span class="required" style="color: red;">*</span>密码：</dt>
                         <dd>
-                            <input type="password" id="password" placeholder="请输入6位以上密码">
+                            <input type="password" id="password" placeholder="请输入6位以上密码" v-model="password">
                         </dd>
                         <div class="clears"></div>
                     </dl>
                     <dl>
                         <dt><span class="required" style="color: red;">*</span>确认密码：</dt>
                         <dd>
-                            <input type="password" id="passwordCheck" placeholder="请再次确认密码">
-                            <p class="passwordTip" style="display: none;"> 两次密码不一样</p>
+                            <input type="password" id="passwordCheck" placeholder="请再次确认密码" v-model="passwordChec"
+                                @blur="confirmPwd">
+                            <p class="passwordTip" v-text="pwd" :style="showpwd?{color:'#195'}: {color:'red'}"> 两次密码不一样
+                            </p>
                         </dd>
                         <div class="clears"></div>
                     </dl>
 
                     <div class="subtijiao">
-                        <input type="button" value="注册" onclick="sub()">
+                        <input type="button" value="注册" @click="sub()">
                     </div>
                 </form>
             </div>
 
 
             <!--  register succ,auto jump  -->
-            <div style="display: none">
-                <form method="post" id="fm1" action="https://cas.jingpai.com/cas/login">
 
-                    <h2>请输入您的用户名和密码.</h2>
-
-
-                    用户名:<input type="text" id="login_username" name="username" value="">
-
-                    <br>
-
-                    密　码:<input type="text" id="login_password" name="password" value="">
-
-                    <br>
-
-                    execution:<input type="hidden" name="execution"
-                        value="fbeeaec4-72ca-448c-ab0c-96ef93751ec0_ZXlKaGJHY2lPaUpJVXpVeE1pSjkuWjNsUFRtTjVSbFF5V1VaMmVEUmFVVE5LWjNvMmFrRnJjRGxQVjJSc2VWVjBOelp1V1ZBMEx5OTRlVXA1VGpCSVJXSjJTRkpoZFV0YWJXbG9PVGswWlc1d05saEVjSGxFZWtoQ1NtTkdZa3RTTkcwMVMzWnNTRlZJTTI1cFpUUk1iMk0wTTJ4bmQzcHJRMmh6VmpKa0swbE5ORVp4ZEdkUU1WTmphVEIwUTBwclZYUTJVRXBOVnpKNmQyVlRWRTl0Tm14cWVUVk5SQzg0TUVSVlFtMXVRbXhtYjIxbVl6TjRRV2h4TTB0cVoySnFXR0YyTURsTk9WTm9SVzVSTWtkRGIwVldNVWRFTjB3eE5ISmtTRGxyTWpCR2RESXlXVTE0TDJKeE4yeHhLMFo1Y25wTmFHTk9OV1pQTW1vMVQxcGxUMjlOZFRWMVUyRlFTa295TkRGa1RFVk1URGc1TDNoWGVtZERaMU56WXpGTFprVnFOMDF4VVU1MFNWUTJjRWc1YkRWa2JIWklPSFk1TkdwVGMwaFJlbmhpVURoemVVWXZOMFp3U1RSNFkwaDFObWhuU2xSaE5uazBVMlIwUWtFMU4zSllNMGh3V2tkbFRVWTNZVVE1ZVZOTWRtNUtjR2RIZURrck1YYzVPSEV2UWxKbmJ6aDJLemg2VkhKME4ybHNkME5WUTJZck5FZENiVWRPT1hOUFRFTXlRbWhsU1hWd1RYaGxSazFpUTFwdE1qTTBUV2xuTDJOeFFtdG5kVTh3TlhkWVRUSXlTWFozVXlzM1ZGVmpPWFZEWVd0VFVVNHpiVk4wUldwVFZEQXhOV1E1U2xNcmVqWkdXSGR2WlU1RlNuWlBhVkU1YldNMWEyWm9NbmhSTm5SRVZHOXFSVzE1ZFdrNWJIVnJVMUl5TWk5QlpFb3ZWRWR6UkdGWFdXOHdSelJNUlhkRFpuWTFURWxwYkZkbGIydFlabGhRYkRaNVMzTnJWa0ZLUTNwdlpGVllSbXRvTDBSbUwxUmtjemRrV0dnM05YWmxWWFZEWVZsUFFpOVVibXAzTW5BMWFFZEtPRFJNUkZkc2JXUTJZMkYwVWxGdGFXZHdNamRGUVU1NVpVSkxlbEJNZEU5ck5ubFRlRTFtTVhWVWJtRmlXRk5IT1V0YU0yRnNWVkJXU3pNdlFrSmtla2RsYjBobGRsY3JXVmRXZW1sSGVWVXhhV3M0WTBkVVkxaEhkR3hDSzB0MlFuaHdiMkZzY1ZkdU5sZFhja2hIU1ROYVJXMU9aM1ZsY25NdlJscFRaMWt3Tm1ZcmNsTjBOV2g1VjIxU04yVmhRMlZJVm1kdmNtUk5lRmRvUVhsek1sTlZZM1phYlVVemQyOXliMGw0TVdWbWFGSTVSMFY0Wm5SeGVWTkVlRGhIUmpGT2NGUmtOMFlyTURkVmEwcG1jelJGZUZoT0wzSnJOR05OVW0xdk4yOU5USGMxWTB0NlZUaGxNalV6VlRrNWNHUndhbTVPTkVGeVltbFBORzloY214U2JYZEJOVzVDTUhSWE4wcERSbUZQYVhveVFXTkhTRWhyZDJGc2NYWlJSM2NyUkhnNU5tbEtPVmRCVldwbVp6VlBhMFpxUTFsSFRHRklVVGRQVkhKUFFqSkxRaXRvVkdwcFJYaGxRbGs0VWpaa2VVdE9ZemMzY210R1RraHJlalZOVldjdmVXMUpSV1p1VG1OS04xcDVNRFl6Y1cxd1dGTlBObUZKWVhsNmFWWnNXVEpWWm5KV2NUWmliVnBEZGpkSU1reDZiRVZEWkZKSGFHcEZhazhyVUV4VVJXMDRaR0kyUlZnM1EzWXlXbk56TWsxQk16WnVjRGRZV0RSdVdYTXZlamxEY0hrdlUyeEhZbnBVWlZOeVpFTTJhRFpyTlVkRE5sUklaQ3M0U2t0alZXdFpMM1ZRUzJ3Mk1VSXpaMjlhVFVKVFZHNDBVemhLTkhZdmJWbFRhMUZtYWtKTlNEUlNjVlZJYzBsNE5qVktaSGRhTTIxc1kxcG9OREU0U2xwdlZUWlBTR1JYVW5kelJqSXhRbVZ5Y2tOelpsSkNiV1V6YkU1Ulp6azVSbFpVYW5oQ1ZYVmhMMWNyVjJKalZFOHpVRWgzT0ZCUmJqRlhhazQyVTFkbWJtZE5PWHBUSzNaUmVYRlNhRXhYZVV0dVFUQnhjVGM0YWxGc1dpdDZNbTFsTW10blJVSldUbGhETmk5TlkwVkJlVUZVYjFsellsbDNUVXRuVm1sa2JsTjNhQzlVZEZsWWRGZE1ZVWcwZERrelNqTTRlbEZIYWtVM05XcHRNbEZRT1VGU2JTOHJRbU4wYWtGUk9XTlNPV3BXWkRNMEt5OXVZWHBNWldoV1JUWjNZVXBOZEUxUlJscHBNbGRHVlhwcWRrNXdhMWh6WVRnckswSmlaSEZGT1RkSGRXSXdhbFpJYlU1bk9DOVdUekUyTjA1NVEwUjZOMlpsU25kRk1EUldObFZqVDNwT1l5dHJXR3hyUW5CR1MxSkdUMmxZY3pBMFVWSjNkV1ZIVFVJeGNrNDNVRmt3YmxJclR6WjNOSEZWUTFFeE1qSnFja1JHUm1wS2JXVXhhMDlLVmpSeFJ6UXJNV05rUkU1VVJUZDVlbTlOWkVNelpXdFdaR2Q0UkRjMlRXRm9lVXRaU1ZkU1RDOWpUbFZYTVhoUWFrRjJhRmsyVERZd1JsTjRaM0pNYUd3MGFWTmhiMHhhTkVsT1JUTnlNR2RIWTJnMEwyNUxURzVoVFd3MlZpdFphVVZHVUVveVZ6Qk5lRUozYWtoRGFEVnhlV0pwZFZaQk5VWXpZVmRNTmxWV1pFaFdObWs1TVZCdlFVZFRObTlUY0M5WFJVZHdha000VFc4dk5WbHhhaXRyVlRNd2IwZFJhalYxZDJwRlMzUlRaVTVuYVUwMFppODBhemhKVEdsWE9VcDFWWGt4ZGpJNWNXeExNbEZqZWtoU1QzY3hNV1pUYlRGTGF6RlpRV3d3TmtoM1RteFhaVEZ0VHpKUlkzcE5TbTlYZVhsc05qTnNaVkF6UW1sRFN6QTBNazV4U0ROMGNHNWhUa3B1VFZkVFRVMVBTSHAyYTBGMVMyWTVOV1pvWlc1bGFFMDVWR3g2Y3pobVZUSXdWSEJKZEZCUU4zWjBjRzR3U0VodWIyMUpNa2RIY1hWS1JERm9XVUZDTUZOWlF6UjNiVGh4VTFOTWFHZFZSbFkyY0VkT1oxUlhSM2xHTWxCak1ISmFaMHBYV0ZOcGJWVkpiVTQ1TVZWSmIwTldlV0pqVVc1RE9XWkJSbEZNV0V0Qk1saHVXRVJOVTNGYVVYcFJTRU5hYkZJMlFtWnZZVVV3UXpoblNUZzFjSFpZYW5VMloyNTJZelJzZUU1SGRGb3ZkV1J5WVM5bVprSndaVzVpVFVGSGFVaFJNaTlDY21VekwzUkpSbHBQVkdWWmQzQnFTVWxGTVVKRWNVSnZhSFZQUXpkWlZUaHBSMFZZZDFKMFpqSnVTV3BXTm5obWRGRk5UblpoTjJjNVkwVktjMXBZTkdwNlVUTk9OMXBuTDJGa01VdERZM0JLVEdsQlJqQjJMMkpyWkZNeE9FNHhMMFJLWTFoaVVtczJjMk5zTmlzckwwUnlTSEY1UWtjemFsQlFUR2hvZFZSeFUzWkVlV2xzSzJZMlppOHlWelJhTkROdGJHWnpSMUZXU0VKTFptdERabVp4TVRkS2FWTlpPVVp0TUdrMWMyUlNjM0l3VjBsNVFXVmpWVnBaZERObWFsRXdTemgzVVN0S1YzcEtTaklyTmxCVlkxZHRTbGxrT1VrNU0wcG1WM042UTJkR2NERm9PR2xZUVdoVVRqZEpURVE1WTBzeVN6TjZSMDlPTDJaVVVVaDFUa2xtVlRWNFVtZHBXV3RWZDFoVE5tUkNWbVVyT0dobmJFaFlOWGxYUldaVGFtdEZUazk2V1ZneVZFcHBialJHTW1sTlpYaDRPSGRLVGs1UVdqazVTRmxTTVdodWVYRnBRWFl6YUhkRWJYQnhjbWRrY2xKTGFFbHBVbXd6Vm5sVFJTdElPRTAxZFZWc09GRjVkelZRZFhKbllWUkVXQ3N3YUZSbGVrOVZTME54UW1WNlkwVk5ZM1p1Y1dneVRGbFhia0ZPZUVaMk5uaEtSMFU0ZUhoWmVIZHJNMHQ0YXpkTVUwZFNNM0pxVEdGVFRGbFlOVlZHU0ZaelZWcFJhelpwVmtGUVEyUk5WMGhKWm5jM2RpdGtVM1ExVG1KcFprSldhelpEUlc1aE9VWjZlbE1yVUVjd1ozWnViMDVqYzFOaGVFVTVWbXBzVWpZMVpUTkhkRFE0TTFKS1kwVTJXbk5NVTFScFdUbDNha3BLUTI0eVVuVnhOR3B2UVVZM05YTjRTQ3RhUkhKbVdFWnRiVTV1TkZOYVVWRk5ZVWRtV0daTGFsVkZXbVJsYkZCWFowMDFibWcxVkRsdFRrc3hRWGxsYkU4eFpVZFZOMDlzVVRkU1Ywd3daUzlzZVROd1FtMHpkbkI2YnpocmJHaGFXRUU1Vld4ck0xaFdORXhoT1ZKeGFrcFpOM1ZTTkdSRlJGa3JZMnROYW5FelZXTkdaSGxuUkRNMWVVeENXazh2UzBod1VuWkxTekp5TmtjMFRFTm5abVZGVVdsbFNXVTRNa3hsWWt3emMweHJWVTV4WXpsVGVYaDZTRFJaWldSc05qUldWbVZQZDBsUk1rWnJkbXhTVW1JeFUxaGtiM1Z0Y0VKVVFYbE5Zemw2ZUhOUVlucDVlV040V2xoT1NFSkVRVGhOZW5WalIwWmhNM3AwUkVaQlRtbE1LemxVT0RkM1kwWXhhMkYwZVdWcllrUmFLMWhpVFV3MlYzRkVXSGhRVFhKdFdYQm9VbmQzTVVwcUsyUXZTWGhtYkd0TlFUSk1WRXAyVDFSbU9XeE9NSFJTUVROaWRtWTNlbXgwTkRrelQxa3dkR2xCUVVObGFESnRhWFJyVTFCdVpqRk9abFJwWm1KcEszbElURlZQZUhCNVN5ODBOakpZT1hkQkx6bDRWako1ZHl0TlduWldTRXBPY2pWUWIwTlNSR3QwVG10WU0wbE1NVTV5TVhVclUyTm1aREI0UmpGU1pGRTBlazFEVjNONFRXVnNOMUpsTTJjMWVUTTFUa054Ukc0NVMyMVFMekZYTm1sNEsyMHdUR1phYkVkdmJIQlNOVXQwWkVaaFRtd3pSbGxuYkc1b2VFSXJjMFE1UjBOMFduVkRhamR2YjNWdkwxVlRiMWhsU2tOWU1ITm1XRkZxYW1RNWNXcFhXV2xXVkdNd2VqazRXRU5hVTB3eWFIcENjVGRsUWxWTVZXRjFZV2xsU2xGbE1XODVURGRXVTJ4SGFtaG5WVGxNU0RZck1YcEpLMWxxU0cxdU1GUlpPREpoVmpKbmN5OVVLemhYTm1kVFUxbGxaRFpJV0RWSVl6WXJlVzgxYWtSdGIwSnhaVmxLVlN0MFZESTVTMDV5ZWsxS09FWlpWSGx3VGtwek1EWnFZMkV2T1ROMVJrNXJVVWsxTWpKM1UyUmlNV2RwV1VGVWNVWjFPVFpwVnpkWksyaFNhRU0wUlZObFFuY3djWEZxUVZKaE9URXdTbFUxT1V0b2EyNXdkak5OY0RkQ1QyeFpNVmd4T1VWUldETjZWV0ZIV1RGR1NqSnRValkyTTBGc01GQm1iWFJuY1N0UVdFdGthMDl2WTFKRUwyaGhlbmwwWnpOdVdsUjRjM2x5UzFBM1VqVkRha0p2WjFsdVpXOUZTRTVQVHpaVk5HeFRNMDV5Uld0NmEybFFaVEpUVDJ4NVVYSmlRMWRQVVhaYVoxZE5TMGd2TjA1c1kxUm5VM1o1VkN0MVUyZDFNVXdySzB4TlNWSk9Oa2xJVXpNd09ETXpUVXRCZUd4SFJsVndTVmRZUWtaV1VHZHNTR28yTUU0cmRESnNkRFJYTWtoV1JsTm1SbkExTkU1alptOXFVRVV4VlU5VlIzQndNVkJzVDFsNU9HRkVObTVoVHpZMVpIUjZjMHBoZEVoM1BUMC4yNGxTVkNld1lCb2Fta0JmZUJqUDNWb1Y2VDhYYzlCZlV2TndwTXBxQkpkM3lhdGVFekJJRGRJQWNnX1ZwTklfXzZGenRiZ3FGTTU5YndMMGdMbElFdw==">
-
-                    <br>
-
-                    <input type="hidden" name="_eventId" value="submit">
-
-                    <br>
-
-                    <input type="hidden" name="geolocation">
-
-                    <br>
-
-                    <input type="submit" value="登录">
-                </form>
-            </div>
 
             <div style="text-align: center;color:#000;position: relative;top: 10px;width: 100%;">
 
@@ -115,6 +91,158 @@
 
 <script>
     export default {
+        data() {
+            return {
+                // 手机号
+                telphone: "",
+                // 手机号正则
+                phoneRegex: /^1\d{10}$/,
+
+
+                // 图形验证
+                verifytext: '8302',
+                // 号码提示开关
+                phoneshow: false,
+                // 号码提示内容
+                phonetext: '',
+                // 号码字体颜色
+                show: false,
+                //验证码
+                validateCode: '',
+                //随机数
+                num: '',
+                // 
+                shownum: false,
+                // 密码
+                password: '',
+                //密码验证
+                passwordChec: '',
+
+                showpwd: false,
+                // 密码提示
+                pwd: '',
+                isok: true,
+                name: '',
+
+                telok: false,
+                // 用户名提示
+                textname: '',
+                showname: false,
+                nameok: false,
+
+
+
+            }
+
+        },
+        methods: {
+            async confirmTel() {
+                this.phoneshow = true
+                if (this.phoneRegex.test(this.telphone)) {
+                    // this.phoneshow = false;
+
+                    let data = await this.$axios('http://localhost:3300/reg/tel', {
+                        params: {
+                            tel: this.telphone
+                        }
+                    })
+                    if (data.data == 'yes') {
+                        this.phonetext = '该手机号已经注册过了请您换一个号码'
+                        this.show = false
+
+
+                    } else {
+                        this.phonetext = '手机号码验证成功'
+                        this.show = true
+                        this.telok = true
+                    }
+
+
+                } else {
+                    this.phonetext = '手机号格式不正确'
+                    this.show = false
+                }
+
+
+
+            },
+
+            btntext() {
+                this.verifytext = parseInt((Math.random() * 9000) + 1000)
+            },
+            // 用户名验证
+            async confirmName() {
+                if (this.name) {
+                    let data = await this.$axios('http://localhost:3300/reg/name', {
+                        params: {
+                            name: this.name
+                        }
+                    })
+                    console.log(data);
+                    if (data.data == "yes") {
+                        this.textname = '该用户名太受欢迎了请您换一个'
+                        this.showname = false
+                    } else {
+                        this.textname = '该用户名可以注册'
+                        this.showname = true
+                        this.nameok
+                    }
+                } else {
+                    this.textname = '该用户名不能为空'
+                    this.showname = false
+                }
+
+            },
+            // 验证密码
+            verifyNnm() {
+                if (this.validateCode == this.verifytext) {
+                    this.num = '验证码输入正确'
+                    this.shownum = true
+                } else {
+                    this.num = '验证码输入错误'
+                    this.shownum = false
+                }
+            },
+            confirmPwd() {
+
+                if (this.password === this.passwordChec) {
+
+                    this.showpwd = true
+                    this.pwd = '两次密码输入一样'
+                    this.isok = true
+                } else {
+                    this.showpwd = false
+                    this.pwd = '两次密码输入不一样'
+                }
+            },
+            async sub() {
+                if (this.phoneRegex.test(this.telphone) && this.isok && this.nameok && this.telok) {
+
+                    let data = await this.$axios('http://localhost:3300/reg/add', {
+                        params: {
+                            tel: this.telphone,
+                            pwd: this.password,
+                            name: this.name
+                        }
+                    })
+                    console.log(data);
+                    if (data.data == 'yes') {
+                        alert('注册成功去登录')
+                        this.$router.push('/login')
+                    } else {
+                        alert("注册失败")
+                    }
+
+                } else {
+                    alert('请输入完整的信息在提交')
+                }
+
+
+
+            }
+
+
+        }
 
     }
 </script>
@@ -188,6 +316,7 @@
         width: 220px;
         height: 28px;
         border: #ccc 1px solid;
+
     }
 
     .forget-pwd dd button {
@@ -297,5 +426,24 @@
         /* .forget-pwd dd input{
    width:120px;
    } */
+    }
+
+    #sel-yzsj {
+        position: relative;
+    }
+
+    #random {
+        position: absolute;
+        display: block;
+        width: 80px;
+        height: 30px;
+        margin-left: 20px;
+        border: 1px solid #ddd;
+        right: 28px;
+        top: 0;
+        text-align: center;
+        font-size: 12px;
+        line-height: 30px;
+        color: #ccc
     }
 </style>

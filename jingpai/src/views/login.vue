@@ -69,7 +69,9 @@
                 text: '',
                 show: false,
                 telok: false,
-                showok:false
+                showok:false,
+                
+
 
 
             }
@@ -109,7 +111,9 @@
                                     if(xhr.responseText=="yes"){
                                         this.text = ''
                                         this.showok =false
-                                       this.$router.push({name:'reg'})
+                                       
+                                       localStorage.setItem("tel",this.tel)
+                                    //    this.$router.push({name:'home'})
                                     }else{
                                          this.show = !this.telok
                                         this.text = ' 认证信息错误'
