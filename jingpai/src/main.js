@@ -7,6 +7,9 @@ import './base.css'
 
 
 import axios from 'axios'
+axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';//全局更改
+import qs from 'qs'
+Vue.prototype.$qs = qs;
 Vue.prototype.$axios = axios
 
 // vant ui

@@ -10,6 +10,7 @@ var typeListRouter = require('./routes/typeList');
 
 var loginRouter = require('./routes/login');
 var regRouter = require('./routes/reg');
+
 var app = express();
 
 // view engine setup
@@ -36,12 +37,7 @@ app.use('/reg', regRouter);
 
 
 
-var cors=require('cors');
-app.use(cors({
-    origin:['http://localhost:8080'],  //指定接收的地址
-    methods:['GET','POST'],  //指定接收的请求类型
-    alloweHeaders:['Content-Type','Authorization']  //指定header
-}))
+
 
 
 
