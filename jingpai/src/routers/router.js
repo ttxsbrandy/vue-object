@@ -1,29 +1,35 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from '../views/Home.vue'
-import Detail from '../views/Detail.vue'
 
 Vue.use(Router)
 
 export default new Router({
   // mode: 'history',
   base: process.env.BASE_URL,
-  routes: [
-    {
-      path: '/',
-      name: 'home',
-      component: Home
+  routes: [{
+      path: '/login',
+      name: 'login',
+      component: () => import('../views/login.vue')
     },
     {
       path: '/detail',
       name: 'detail',
-      component: Detail
-    },{
-      path:'/',
-      alias:'index.html',
-      redirect:()=>{
+      component: () => import('../views/Detail.vue')
+    }, {
+      path: '/',
+      alias: 'index.html',
+      redirect: () => {
         return 'home'
       }
+    }, {
+      path: '/home',
+      name: 'home',
+      component: () => import('../views/Home.vue')
+    },
+    {
+      path: '/reg',
+      name: 'reg',
+      component: () => import('../views/reg.vue')
     }
   ]
 })
