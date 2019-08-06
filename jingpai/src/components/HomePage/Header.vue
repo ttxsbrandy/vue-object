@@ -93,7 +93,7 @@
         <nav>
             <div class="content">
                 <dl id="goods">
-                    <dt class="allgoods" @mouseenter="listShow" @mouseleave="listShow">
+                    <dt class="allgoods" @mouseenter="listShow" @mouseleave="listShow" @click="Tolist()">
                         <span>全部商品</span>
                         <img src="http://www.jingpai.com/themes/shopex_D/widgets/category/images/icon_arrow.png" alt="">
                         <div id="list-type" v-show="show">
@@ -139,6 +139,9 @@
             },
             toReg() {
                 this.$router.push("/reg");
+            },
+            Tolist(){
+                this.$router.push('./LieBiao');
             }
         }
     }
@@ -373,6 +376,7 @@
     nav #goods {
         color: #fff;
         line-height: 40px;
+        font-size: 16px;
     }
 
     nav #goods .allgoods {

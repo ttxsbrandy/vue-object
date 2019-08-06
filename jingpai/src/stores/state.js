@@ -3,5 +3,6 @@
 
 export default {
     //购物车
-    carlist: []
+    carlist: [],
+    gooddata:[],
 }

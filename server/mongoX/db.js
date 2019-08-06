@@ -5,7 +5,7 @@ const {
 // Connection URL
 const url = 'mongodb://localhost:27017';
 // Database Name
-const dbName = 'jinpai';
+const dbName = 'jingpai';
 // 连接
 const connect = () => {
     return new Promise((resolve, reject) => {
@@ -51,12 +51,6 @@ const find = (col, params) => {
 }
 
 
-// (async()=>{
-//     let data = await find('jp',{})
-//     console.log(data);
-    
-
-// })()
 
 module.exports = {
     connect,
@@ -64,6 +58,3 @@ module.exports = {
     // 根据id查找
     ObjectId
 }
-
-
-

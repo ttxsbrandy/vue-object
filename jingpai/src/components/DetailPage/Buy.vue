@@ -4,19 +4,19 @@
             <div id="product" class="clearfix">
                 <div id="magnifier" class="fl">
                     <div id="m-img">
-                        <Magnifier :url="showUrl" :scale="2"></Magnifier>
+                        <Magnifier :url="gooddata[0].img" :scale="2"></Magnifier>
                     </div>
                 </div>
                 <div id="details" class="fl">
                     <div id="detail-top">
-                        <p v-text="title"></p>
+                        <p v-text="gooddata[0].title"></p>
                         <p v-text="shihui"></p>
                     </div>
                     <div id="detail-center">
                         <p>
                             <span class="shangcheng">商 城 价：</span>
-                            <span class="price">￥<span>1499.00</span></span>
-                            <span class="huiprice">会员价：最低 ￥1499.00起</span>
+                            <span class="price">￥<span v-text="gooddata[0].dprice"></span></span>
+                            <span class="huiprice" v-text="`会员价：最低 ￥${gooddata[0].price}起`"></span>
                             <span class="more">更多会员价</span>
                         </p>
                     </div>
@@ -33,7 +33,7 @@
                         <div id="rightNow">立即购买</div>
                         <div id="add">
                             <img src="http://www.jingpai.com/themes/shopex_D/images/images/shopping.png" alt="">
-                            <span id="addToCart">加入购物车</span>
+                            <span id="addToCart" >加入购物车</span>
                         </div>
                     </div>
                 </div>
@@ -51,7 +51,8 @@
                 price: 1499.00,
                 showUrl: 'http://www.jingpai.com/public/images/35/d9/02/1e0e87e60926e0dc47d705a212ac7dab0ce4ed2b.jpg?1555057566#h',
                 num: 1,
-                kucun: 10
+                kucun: null,
+                gooddata:null
             }
         },
         components: {
@@ -64,6 +65,7 @@
                     alert('超出库存');
                     this.num = this.kucun
                 }
+                console.log(this.kucun);
             },
             minus() {
                 this.num--;
@@ -77,6 +79,10 @@
                     this.num = 1;
                 }
             }
+        },
+         created(){
+            this.gooddata = this.$store.getters.getgooddata
+           this.kucun = parseInt(this.gooddata[0].kuncun);
         }
 
     }

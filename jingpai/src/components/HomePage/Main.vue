@@ -13,11 +13,11 @@
         <main>
             <div class="content">
                 <div v-for="(t,index) in typeList" class="imgs" :key="index">
-                    <div><img :src="t.timg" alt=""></div>
+                    <div><img :src="t.timg" alt="" @click="toList(t.tid)"></div>
                     <div><img :src="t.bigimg" alt="">
                     </div>
                     <div>
-                        <img v-for="(s,i) in t.smallimg" :src="s.goodimg" alt="" :key="i">
+                        <img v-for="(s,i) in t.smallimg" :src="s.goodimg" alt="" :key="i" @click="toDet(s.goodid)">
                     </div>
 
                 </div>
@@ -45,22 +45,38 @@
             }
         },
         methods: {
-            navto() {
+            // 带参跳转列表页
+            toList(t) {
                 this.$router.push({
-                    name: 'detail'
+                    name: 'liebiao',
+                    params:{
+                        tid: t 
+                    }                 
+                })
+            },
+            // 带参跳转详情页
+            toDet(s) {
+                this.$router.push({
+                    name: 'det',
+                    params:{
+                         goodid: s
+                    }
+                   
                 })
             }
-        },async created() {
+        },
+        async created() {
             let typeList = await this.$axios("http://localhost:3300/typeList/find");
-                this.typeList=typeList.data;
+            this.typeList = typeList.data;
         }
     }
 </script>
 <style lang="scss" scoped>
-    .content{
+    .content {
         width: 1200px;
         margin: auto;
     }
+
     #swipe {
         width: 100%;
         height: 450px;
@@ -87,10 +103,12 @@
         height: 100%;
         object-fit: contain;
     }
-    .img div{
+
+    .img div {
         width: 100%;
     }
-    .img div img{
+
+    .img div img {
         object-fit: contain;
     }
 </style>

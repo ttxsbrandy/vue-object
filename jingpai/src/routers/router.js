@@ -4,7 +4,6 @@ import LieBiao from '../views/LieBiao.vue'
 // const Cart = () => import('../views/Cart.vue');
 const Cart2 = () => import('../views/Cart2.vue');
 
-import Xqing from '../views/Xqing.vue'
 Vue.use(Router)
 
 export default new Router({
@@ -15,12 +14,6 @@ export default new Router({
       name: 'liebiao',
       path: '/liebiao',    
       component: LieBiao
-    },
-    
-    {   name:'xqing',
-        path:'/xqing/:id/:name',
-        component: Xqing
-      
     },
 
     {
@@ -39,7 +32,7 @@ export default new Router({
       component: () => import('../views/login.vue')
     },
     {
-      path: '/detail',
+      path: '/detail/:goodid',
       name: 'detail',
       component: () => import('../views/Detail.vue'),
       children: [{
@@ -58,7 +51,7 @@ export default new Router({
         {
           path: '/detail',
           redirect: () => {
-            return '/detail/det'
+            return '/detail/:goodid/det'
           }
         }
       ]
