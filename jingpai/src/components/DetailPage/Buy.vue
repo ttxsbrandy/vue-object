@@ -46,12 +46,9 @@
     export default {
         data() {
             return {
-                title: "45度 毛铺苦荞酒 紫荞 500mL*6 箱装",
                 shihui: "实惠箱装，内含3个礼袋。下单即送750mL玫瑰和露酒2瓶~",
-                price: 1499.00,
-                showUrl: 'http://www.jingpai.com/public/images/35/d9/02/1e0e87e60926e0dc47d705a212ac7dab0ce4ed2b.jpg?1555057566#h',
                 num: 1,
-                kucun: null,
+                kucun: 10,
                 gooddata:null
             }
         },
@@ -65,7 +62,7 @@
                     alert('超出库存');
                     this.num = this.kucun
                 }
-                console.log(this.kucun);
+                // console.log(this.this.$store.getters.getgooddata);
             },
             minus() {
                 this.num--;
@@ -82,7 +79,9 @@
         },
          created(){
             this.gooddata = this.$store.getters.getgooddata
-           this.kucun = parseInt(this.gooddata[0].kuncun);
+        //    this.kucun = parseInt(this.gooddata[0].kuncun);
+        console.log(this.gooddata[0].img);
+        console.log(this.$store.getters.getgooddata);
         }
 
     }
