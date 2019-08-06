@@ -1,31 +1,24 @@
 import Vue from 'vue'
 
-import {
-    Swipe,
-    SwipeItem
-} from 'vant';
 
-import {
-    Lazyload
-} from 'vant';
 
 import {
     Button,
-    Divider
-} from 'vant';
-
-import {
     Step,
     Steps,
     Card,
-    Stepper
-} from 'vant';
-
-// 分页
-import {
+    Stepper,
+    Divider,
+    Swipe,
+    SwipeItem,
+    Lazyload,
     Pagination
 } from 'vant';
 
+
+
+
+// 分页
 
 export default () => {
     Vue.use(Swipe).use(SwipeItem);

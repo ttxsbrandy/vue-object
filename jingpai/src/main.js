@@ -3,7 +3,7 @@ import App from './App.vue'
 import router from './routers/router'
 import store from './stores/store'
 import './registerServiceWorker'
-import './base_px.css'
+// import './base_px.css'
 import 'vant/lib/index.css'
 // import iView from 'iview';
 import 'iview/dist/styles/iview.css'; // 使用 CSS
@@ -13,7 +13,7 @@ import './base.css'
 
 
 import axios from 'axios'
-axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';//全局更改
+axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'; //全局更改
 import qs from 'qs'
 Vue.prototype.$qs = qs;
 Vue.prototype.$axios = axios

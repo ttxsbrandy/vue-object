@@ -6,7 +6,7 @@
                     <img :src="foot.imgs" alt="" class="fl">
                     <dl class="fl">
                         <dt v-text="foot.dts"></dt>
-                        <dd v-for="(dds,i) in foot.dds" v-text="dds" :key="i"></dd>
+                        <dd v-for="(dds,index) in foot.dds" v-text="dds" :key='index'></dd>
                     </dl>
                 </div>
             </div>
