@@ -1,5 +1,6 @@
 <template>
   <div class="con">
+    <Header></Header>
     <div class="cart-title">
       <h1>
         <i class="icon"></i>购物车
@@ -422,10 +423,13 @@
         </div>
       </form>
     </div>
+    <Footer></Footer>
   </div>
 </template>
 <script>
 import Sel from "./Sel";
+import Header from "./HomePage/Header";
+import Footer from "./HomePage/Footer";
 export default {
   data() {
     return {
@@ -466,7 +470,9 @@ export default {
     }
   },
   components: {
-    Sel
+    Sel,
+    Header,
+    Footer
   }
 };
 </script>

@@ -2,11 +2,11 @@
     <div>
         <div class="content">
             <div id="footer-top">
-                <div v-for="foot in footlist">
+                <div v-for="(foot,index) in footlist" :key="index">
                     <img :src="foot.imgs" alt="" class="fl">
                     <dl class="fl">
                         <dt v-text="foot.dts"></dt>
-                        <dd v-for="dds in foot.dds" v-text="dds"></dd>
+                        <dd v-for="(dds,index) in foot.dds" v-text="dds" :key='index'></dd>
                     </dl>
                 </div>
             </div>
