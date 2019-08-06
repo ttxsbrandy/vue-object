@@ -17,6 +17,12 @@ const {
     del
 } = require("../mongodb/db");
 
+var {
+    createToken,
+    decodeToken,
+    checkToken
+} = require('../mongodb/token');
+
 /* 验证手机号是否正确 */
 router.get('/tel', function(req, res, next) {
     res.append('Access-Control-Allow-Origin', '*')
@@ -41,21 +47,28 @@ router.get('/tel', function(req, res, next) {
 
 // 验证密码是否正确
 
-router.get('/pwd',function(req,res,next){
+router.post('/pwd',function(req,res,next){
 
     // res.header('Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept, Connection, User-Agent, Cookie,token');
     
     // 解决跨域的问题
     res.append('Access-Control-Allow-Origin', '*')
     // console.log(req);
-    let {pwd,tel}=req.query
+    let {pwd,tel}=req.body
     console.log(pwd,tel);
     (async()=>{
         let data = await find ("username",{pwd,tel})
         console.log(data);
         // res.send(data)
         if(data.length){
-            res.send("yes")
+            let token = createToken({
+                pwd
+            }, 300)
+            res.send({
+                status: 'success',
+                token
+            })
+          
         }else{
             res.send("no")
         }

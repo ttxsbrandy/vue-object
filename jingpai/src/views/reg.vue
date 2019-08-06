@@ -185,7 +185,7 @@
                     } else {
                         this.textname = '该用户名可以注册'
                         this.showname = true
-                        this.nameok
+                        this.nameok   = true
                     }
                 } else {
                     this.textname = '该用户名不能为空'
@@ -216,22 +216,41 @@
                 }
             },
             async sub() {
-                if (this.phoneRegex.test(this.telphone) && this.isok && this.nameok && this.telok) {
+                if ( this.isok && this.nameok && this.telok) {
 
-                    let data = await this.$axios('http://10.3.132.145:3300/reg/add', {
-                        params: {
+                    
+                    await this.$axios({
+                        method: "post",
+                        url: 'http://10.3.132.145:3300/reg/add',
+                        data: this.$qs.stringify({
                             tel: this.telphone,
                             pwd: this.password,
                             name: this.name
-                        }
-                    })
-                    console.log(data);
-                    if (data.data == 'yes') {
+                        })
+                    }).then(res=>{
+                        console.log(res);
+                        if (res.data == 'yes') {
                         alert('注册成功去登录')
                         this.$router.push('/login')
                     } else {
                         alert("注册失败")
                     }
+                    })
+
+                    // let data = await this.$axios('http://10.3.132.145:3300/reg/add', {
+                    //     params: {
+                    //         tel: this.telphone,
+                    //         pwd: this.password,
+                    //         name: this.name
+                    //     }
+                    // })
+                    // console.log(data);
+                    // if (data.data == 'yes') {
+                    //     alert('注册成功去登录')
+                    //     this.$router.push('/login')
+                    // } else {
+                    //     alert("注册失败")
+                    // }
 
                 } else {
                     alert('请输入完整的信息在提交')

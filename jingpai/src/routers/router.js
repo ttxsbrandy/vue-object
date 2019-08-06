@@ -14,7 +14,28 @@ export default new Router({
     {
       path: '/detail',
       name: 'detail',
-      component: () => import('../views/Detail.vue')
+      component: () => import('../views/Detail.vue'),
+      children: [{
+          path: 'det',
+          name: 'det',
+          component: () => import('../views/optionCard/det.vue')
+        }, {
+          path: 'commend',
+          name: 'commend',
+          component: () => import('../views/optionCard/commend.vue')
+        }, {
+          path: 'consult',
+          name: 'consult',
+          component: () => import('../views/optionCard/consult.vue')
+        },
+        {
+          path: '/detail',
+          redirect: () => {
+            return '/detail/det'
+          }
+        }
+      ]
+
     }, {
       path: '/',
       alias: 'index.html',

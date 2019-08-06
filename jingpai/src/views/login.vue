@@ -69,13 +69,16 @@
                 text: '',
                 show: false,
                 telok: false,
-                showok:false,
+                showok: false,
+
+
+
 
             }
         },
         methods: {
             async gettel() {
-              
+
                 if (this.tel) {
                     var str = await this.$axios(`http://10.3.132.145:3300/login/tel`, {
                         params: {
@@ -93,44 +96,46 @@
                 } else {
                     this.text = '手机号不能为空'
                 }
-                  this.showok=true
+                this.showok = true
             },
-            btn() {
+            async btn() {
                 if (this.pwd) {
                     if (this.telok) {
-                        var xhr = new XMLHttpRequest()
-                        xhr.open('get', `http://10.3.132.145:3300/login/pwd?tel=${this.tel}&pwd=${this.pwd}`)
-                        xhr.send()
-                        xhr.onreadystatechange = () => {
-                            if (xhr.readyState == 4) {
-                                if (xhr.status == 200) {
-                                    console.log(xhr.responseText);
-                                    if(xhr.responseText=="yes"){
-                                        this.text = ''
-                                        this.showok =false
-                                       
-                                       localStorage.setItem("tel",this.tel)
-                                    //    this.$router.push({name:'home'})
-                                    }else{
-                                         this.show = !this.telok
-                                        this.text = ' 认证信息错误'
-                                       
-                                    }
-                                    
 
-                                } else {
-                                    alert('错误http状态码是：' + xhr.status);
-                                }
+                        await this.$axios({
+                            method: "post",
+                            url: `http://10.3.132.145:3300/login/pwd`,
+
+                            data: this.$qs.stringify({
+                                tel: this.tel,
+                                pwd: this.pwd
+                            })
+                        }).then(res => {
+                            console.log(res);
+                            //  console.log(res.data);
+                            if (res.data.status == 'success') {
+                                this.text = ''
+                                this.showok = false
+                                // console.log(res.data.status,res.data.token);
+                                localStorage.setItem('token',res.data.token)
+                                localStorage.setItem('tel',this.tel)
+                                
+                                this.$router.push({name:'home'})
+                            } else {
+                                this.show = !this.telok
+                                this.text = ' 认证信息错误'
                             }
-                        }
+                        });
                     }
                 } else {
                     this.text = '密码不能为空'
                 }
 
             },
-            btnreg(){
-                this.$router.push({name:"reg"})
+            btnreg() {
+                this.$router.push({
+                    name: "reg"
+                })
             }
         }
 

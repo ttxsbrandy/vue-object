@@ -59,12 +59,12 @@ router.get('/name', function(req, res, next) {
    
 });
 
-router.get('/add',function(req,res,next){
+router.post('/add',function(req,res,next){
     res.append('Access-Control-Allow-Origin', '*')
 
     let {
         tel,pwd,name
-    }=req.query
+    }=req.body
 console.log(tel,pwd,name);
     (async()=>{
      

@@ -51,7 +51,7 @@
                 })
             }
         },async created() {
-            let typeList = await this.$axios("http://localhost:3000/typeList/find");
+            let typeList = await this.$axios("http://localhost:3300/typeList/find");
                 this.typeList=typeList.data;
         }
     }
