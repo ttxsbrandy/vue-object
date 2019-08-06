@@ -122,7 +122,7 @@
                     this.canvas=document.createElement('canvas')
                     this.canvas.className='mouse-cover-canvas'
                     this.canvas.style.position='absolute'
-                    this.canvas.style.left=this.imgbox.offsetLeft+this.imgbox.offsetWidth+80+'px'
+                    this.canvas.style.left=this.imgbox.offsetLeft+this.imgbox.offsetWidth+200+'px'
                     this.canvas.style.top=this.imgbox.offsetTop+330+'px'
                     this.canvas.style.border='1px solid #eee'
                     this.canvas.style.zIndex='99999'

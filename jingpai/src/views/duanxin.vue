@@ -249,6 +249,7 @@
         padding: 30px 170px;
         min-height: 350px;
         background: #fff;
+        box-sizing: content-box;
     }
 
     .forget-pwd input,

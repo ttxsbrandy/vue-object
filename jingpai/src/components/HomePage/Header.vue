@@ -106,7 +106,7 @@
       <div class="content">
         <dl id="goods">
           <dt class="allgoods" @mouseenter="Show()" @mouseleave="Show()">
-            <span>全部商品</span>
+            <span @click="next">全部商品</span>
             <img
               src="http://www.jingpai.com/themes/shopex_D/widgets/category/images/icon_arrow.png"
               alt
@@ -193,8 +193,13 @@ export default {
         name: "home"
       });
     },
-    Show(){
-      this.listShow = !this.listShow
+    Show() {
+      this.listShow = !this.listShow;
+    },
+    next(){
+      this.$router.push({
+        name: "liebiao"
+      });
     }
   },
   created() {
@@ -442,6 +447,7 @@ nav {
 nav #goods {
   color: #fff;
   line-height: 40px;
+  font-size: 16px;
 }
 
 nav #goods .allgoods {

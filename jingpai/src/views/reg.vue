@@ -186,7 +186,7 @@ export default {
       duannums: "",
       textnum: "",
       shownumA: false,
-      nums: ""
+      nums: null
     };
   },
   methods: {
@@ -271,7 +271,7 @@ export default {
     },
     // 短信验证是否正确
     smsCode() {
-      if (this.duannums == this.nums) {
+      if (this.duannums ===this.nums) {
         this.isok = true;
         this.textnum = "短信验证成功";
         this.shownumA = true;

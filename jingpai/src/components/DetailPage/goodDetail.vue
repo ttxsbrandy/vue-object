@@ -3,7 +3,7 @@
         <div id="hotlist">
             <h2>商品排行榜<span>与爱同行，乐在分享</span></h2>
             <div id="rexiao">热销榜单</div>
-            <div id="list" v-for="h in hotlist">
+            <div id="list" v-for="(h,index) in hotlist" :key="index">
                 <div id="list-left" class="fl">
                     <img :src="h.img" alt="">
                 </div>

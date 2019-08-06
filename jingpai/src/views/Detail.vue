@@ -36,14 +36,14 @@
         },
         async created() {
             this.goodid = this.$route.params.goodid
-            console.log(this.$route.params.goodid);
-            let gooddata = await this.$axios("http://localhost:3300/list/gooddata", {
+            // console.log(this.$route.params.goodid);
+            let gooddata = await this.$axios("http://10.3.132.48:3300/list/gooddata", {
                     params: {
                         goodid: this.goodid
                     }
                 });
 
-                console.log(gooddata.data);
+                // console.log(gooddata.data);
 
                 this.$store.dispatch('setgooddata',gooddata.data)
             

@@ -1,89 +1,96 @@
 <template>
-  <div class="lbox">
-    <div class="lb">
-      <div class="sp">
-        <span>商品筛选</span>
-        <span></span>
-        <a href>重新筛选项></a>
+  <div>
+    <Header></Header>
+    <div class="lbox">
+      <div class="lb">
+        <div class="sp">
+          <span>商品筛选</span>
+          <span></span>
+          <a href>重新筛选项></a>
+        </div>
+        <div class="xuze">您已选择:</div>
+        <div class="fl">
+          <b>分类：</b>
+          <span>聚会分享</span>
+          <span>坛藏佳酿</span>
+        </div>
+        <div class="pp">
+          <b>品牌：</b>
+          <span @click="test1()">劲牌</span>
+          <span @click="test2()">毛铺</span>
+          <span @click="test3()">枫林</span>
+          <span @click="test4()">金眼牌</span>
+        </div>
       </div>
-      <div class="xuze">您已选择:</div>
-      <div class="fl">
-        <b>分类：</b>
-        <span>聚会分享</span>
-        <span>坛藏佳酿</span>
+
+      <div class="st">
+        <button>默认</button>
+        <button @click="sortByKey()">价格</button>
+        <button @click="sortByKey6()">销量</button>
+        <span>排序:</span>
+        <select name id>
+          <option value>默认</option>
+          <option value @click=" sortByKey8()">价格从低到高</option>
+          <option value>价格从高到低</option>
+          <option value>访问周次数</option>
+        </select>
+        <input type="checkbox" name id="fxun" /> &nbsp;仅显示有货
+        <div class="sx">
+          筛选:
+          <input type="checkbox" name id /> 最新商品
+        </div>
       </div>
-      <div class="pp">
-        <b>品牌：</b>
-        <span @click="test1()">劲牌</span>
-        <span @click="test2()">毛铺</span>
-        <span @click="test3()">枫林</span>
-        <span @click="test4()">金眼牌</span>
+
+      <!-- 列表页 -->
+      <div class="list">
+        <ul>
+          <li v-for="(value,index) in jinpais" :key=" 'tr1'+ index" v-show="show1">
+            <img :src="value.img" alt @click="todet(value.gid)" />
+            <a href v-text="value.title"></a>
+            <span>￥{{value.price}}</span>
+            <del>￥{{value.dprice}}</del>
+            <div class="gw" @click="navTo(value)">加入购物车</div>
+          </li>
+
+          <li v-for="(value,index) in arr2" :key=" 'tr2'+  index" v-show="show2">
+            <img :src="value.img" alt @click="todet(value.gid)" />
+            <a href v-text="value.title"></a>
+            <span>￥{{value.price}}</span>
+            <del>￥{{value.dprice}}</del>
+            <div class="gw" @click="navTo(value)">加入购物车</div>
+          </li>
+
+          <li v-for="(value,index) in arr3" :key=" 'tr3'+ index" v-show="show3">
+            <img :src="value.img" alt @click="navTo(value)" />
+            <a href v-text="value.title"></a>
+            <span>￥{{value.price}}</span>
+            <del>￥{{value.dprice}}</del>
+            <div class="gw" @click="navTo(value)">加入购物车</div>
+          </li>
+
+          <li v-for="(value,index) in arr4" :key=" 'tr4'+ index" v-show="show4">
+            <img :src="value.img" alt @click="todet(value.gid)" />
+            <a href v-text="value.title"></a>
+            <span>￥{{value.price}}</span>
+            <del>￥{{value.dprice}}</del>
+            <div class="gw" @click="navTo(value)">加入购物车</div>
+          </li>
+        </ul>
+      </div>
+      <div class="pg">
+        <!-- 分页 -->
+        <van-pagination v-model="currentPage" :total-items="4" :items-per-page="2" />
       </div>
     </div>
-
-    <div class="st">
-      <button>默认</button>
-      <button @click="sortByKey()">价格</button>
-      <button @click="sortByKey6()">销量</button>
-      <span>排序:</span>
-      <select name id>
-        <option value>默认</option>
-        <option value @click=" sortByKey8()">价格从低到高</option>
-        <option value>价格从高到低</option>
-        <option value>访问周次数</option>
-      </select>
-      <input type="checkbox" name id="fxun" /> &nbsp;仅显示有货
-      <div class="sx">
-        筛选:
-        <input type="checkbox" name id /> 最新商品
-      </div>
-    </div>
-
-    <!-- 列表页 -->
-    <div class="list">
-      <ul>
-        <li v-for="(value,index) in jinpais" :key=" 'tr1'+ index" v-show="show1">
-          <img :src="value.img" alt @click="navTo(value.url)" />
-          <a href v-text="value.title"></a>
-          <span>￥{{value.price}}</span>
-          <del>￥{{value.dprice}}</del>
-          <div class="gw" @click="navTo(value)">加入购物车</div>
-        </li>
-
-        <li v-for="(value,index) in arr2" :key=" 'tr2'+  index" v-show="show2">
-          <img :src="value.img" alt @click="navTo(value.url)" />
-          <a href v-text="value.title"></a>
-          <span>￥{{value.price}}</span>
-          <del>￥{{value.dprice}}</del>
-          <div class="gw" @click="navTo(value)">加入购物车</div>
-        </li>
-
-        <li v-for="(value,index) in arr3" :key=" 'tr3'+ index" v-show="show3">
-          <img :src="value.img" alt @click="navTo(value.url)" />
-          <a href v-text="value.title"></a>
-          <span>￥{{value.price}}</span>
-          <del>￥{{value.dprice}}</del>
-          <div class="gw" @click="navTo(value)">加入购物车</div>
-        </li>
-
-        <li v-for="(value,index) in arr4" :key=" 'tr4'+ index" v-show="show4">
-          <img :src="value.img" alt @click="navTo(value.url)" />
-          <a href v-text="value.title"></a>
-          <span>￥{{value.price}}</span>
-          <del>￥{{value.dprice}}</del>
-          <div class="gw" @click="navTo(value)">加入购物车</div>
-        </li>
-      </ul>
-    </div>
-    <div class="pg">
-      <!-- 分页 -->
-      <van-pagination v-model="currentPage" :total-items="4" :items-per-page="2" />
-    </div>
+    <Footer></Footer>
+    <Aside></Aside>
   </div>
 </template>
 
-
 <script>
+import Header from "../components/HomePage/Header";
+import Footer from "../components/HomePage/Footer";
+import Aside from "../components/HomePage/Aside";
 export default {
   data() {
     return {
@@ -99,6 +106,11 @@ export default {
       show3: false,
       show4: false
     };
+  },
+  components: {
+    Header,
+    Footer,
+    Aside
   },
   async created() {
     let julists = await this.$axios("http://10.3.132.48:3300/list/goodlist");
@@ -200,7 +212,7 @@ export default {
     async navTo(name) {
       // 编程式导航
       let tel = localStorage.getItem("tel");
-      console.log(name.gid);
+      // console.log(name.gid);
       if (tel) {
         let result = await this.$axios("http://localhost:3300/car/add", {
           params: {
@@ -224,11 +236,13 @@ export default {
         }
       }
       // console.log(name);
+    },
+    todet(goodid) {
+      this.$router.push(`/detail/${goodid}/det`);
     }
   }
 };
 </script>
-
 
 <style scoped>
 * {
@@ -346,9 +360,11 @@ a {
   background: red;
   width: 30px;
 }
+
 .lbox #fxun {
   margin-left: 15px;
 }
+
 .lbox .sx {
   height: 30px;
   line-height: 30px;
@@ -357,6 +373,7 @@ a {
   padding-left: 20px;
   box-sizing: border-box;
 }
+
 .sx input {
   line-height: 30px;
   margin-left: 10px;
@@ -376,6 +393,7 @@ a {
   color: #666;
   font-size: 12px;
 }
+
 .lbox .st option {
   color: 12px;
 }
@@ -453,13 +471,11 @@ a {
   margin-top: 10px;
   cursor: pointer;
 }
+
 .lbox .pg {
   width: 200px;
   float: right;
 }
 </style>
 
-  
-
-
-
+    
