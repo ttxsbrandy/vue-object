@@ -6,11 +6,13 @@ var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var listRouter = require('./routes/list');
+var carRouter = require('./routes/car');
 var typeListRouter = require('./routes/typeList');
 
 var loginRouter = require('./routes/login');
 var regRouter = require('./routes/reg');
-
+var duanRouter = require('./routes/duanxin');
 var app = express();
 
 // view engine setup
@@ -31,10 +33,12 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/list', listRouter);
+app.use('/car', carRouter);
 app.use('/typeList', typeListRouter);
 app.use('/login', loginRouter);
 app.use('/reg', regRouter);
-
+app.use('/duan', duanRouter);
 
 
 

@@ -99,7 +99,7 @@
                         <div id="list-type" v-show="show">
                             <dl v-for="(t,index) in typeList" :key="index" class="clearfix">
                                 <dt v-text="t.dts"></dt>
-                                <dd v-for=" (d,index) in t.dds" v-text="d"></dd>
+                                <dd v-for=" (d,index) in t.dds" v-text="d" :key="index"></dd>
                             </dl>
                         </div>
                     </dt>

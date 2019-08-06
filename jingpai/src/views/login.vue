@@ -22,7 +22,7 @@
                 <div class="reg">
                     <a href="###" @click="btnreg">立即注册</a>
                     <span> | </span>
-                    <a href="###">忘记密码</a>
+                    <a href="###" @click="btnpwd">忘记密码</a>
                 </div>
                 <div class="btn" @click="btn">
                     登录
@@ -126,6 +126,7 @@
                                 this.text = ' 认证信息错误'
                             }
                         });
+                   
                     }
                 } else {
                     this.text = '密码不能为空'
@@ -135,6 +136,12 @@
             btnreg() {
                 this.$router.push({
                     name: "reg"
+                })
+            },
+            // 修改密码
+            btnpwd(){
+                this.$router.push({
+                    name:'duan'
                 })
             }
         }

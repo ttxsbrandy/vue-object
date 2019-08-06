@@ -2,11 +2,11 @@
     <div>
         <div class="content">
             <div id="footer-top">
-                <div v-for="foot in footlist">
+                <div v-for="(foot,index) in footlist" :key="index">
                     <img :src="foot.imgs" alt="" class="fl">
                     <dl class="fl">
                         <dt v-text="foot.dts"></dt>
-                        <dd v-for="dds in foot.dds" v-text="dds"></dd>
+                        <dd v-for="(dds,i) in foot.dds" v-text="dds" :key="i"></dd>
                     </dl>
                 </div>
             </div>
@@ -21,7 +21,7 @@
 
         </div>
         <div id="footer-center">
-            <div class="content" >
+            <div class="content">
                 <p style="padding-top: 30px;">热销产品：<span>劲酒</span>
                     <span>毛铺酒</span>
                     <span>追风酒</span>
@@ -37,14 +37,16 @@
                 <p>区号:0714</p>
                 <p>地址：湖北省大冶市大冶大道169号</p>
                 <p id="factory">Copyright©2016 劲牌有限公司
-                <img src="http://res1.jingpai.com/themes/tubiao.png" alt="">
+                    <img src="http://res1.jingpai.com/themes/tubiao.png" alt="">
                 </p>
             </div>
         </div>
         <div id="footer-bottom">
             <div class="content">
                 <img class="fl" src="http://icon.szfw.org/cert.png" alt="">
-                <img class="fl" src="http://www.jingpai.com/public/images/58/43/db/b1db7e8c46e3c87a67f88275ad32b241e4027d62.png?1465896305" alt="">
+                <img class="fl"
+                    src="http://www.jingpai.com/public/images/58/43/db/b1db7e8c46e3c87a67f88275ad32b241e4027d62.png?1465896305"
+                    alt="">
             </div>
         </div>
     </div>
@@ -112,29 +114,35 @@
         height: 160px;
         background: #eeeeee;
     }
-    #footer-center p{
+
+    #footer-center p {
         line-height: 18px;
         font-size: 13px;
     }
-    #footer-center p span{
+
+    #footer-center p span {
         color: #0563c3;
         margin-right: 5px;
     }
-    #lianjie{
+
+    #lianjie {
         margin: 20px 0px;
 
     }
-    #lianjie li{
+
+    #lianjie li {
         float: left;
         font-size: 14px;
         color: #666;
         margin-right: 15px;
     }
-    #lianjie li:nth-child(1){
+
+    #lianjie li:nth-child(1) {
         color: #000;
         font-weight: bold;
     }
-    #factory{
+
+    #factory {
         color: rgb(160, 160, 158);
         margin-top: 10px;
         font-size: 14px;
