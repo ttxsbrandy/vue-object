@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-const Cart = () => import('../views/Cart.vue');
+// const Cart = () => import('../views/Cart.vue');
 const Cart2 = () => import('../views/Cart2.vue');
 
 Vue.use(Router)
@@ -13,7 +13,7 @@ export default new Router({
     {
       path: '/car',
       name: 'car',
-      component: Cart
+      component: () => import('../views/Cart.vue')
     },
     {
       path: '/car2',
