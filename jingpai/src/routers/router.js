@@ -1,25 +1,24 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from '../views/Home.vue'
+import LieBiao from '../views/LieBiao.vue'
 
+import Xqing from '../views/Xqing.vue'
 Vue.use(Router)
 
 export default new Router({
   mode: 'history',
   base: process.env.BASE_URL,
   routes: [
-    {
-      path: '/',
-      name: 'home',
-      component: Home
+    {  
+      name: 'liebiao',
+      path: '/',    
+      component: LieBiao
     },
-    {
-      path: '/about',
-      name: 'about',
-      // route level code-splitting
-      // this generates a separate chunk (about.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
-    }
+    
+    {   name:'xqing',
+        path:'/xqing/:id/:name',
+        component: Xqing
+      
+    },
   ]
 })
