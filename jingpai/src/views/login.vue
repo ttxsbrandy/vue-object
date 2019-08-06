@@ -22,7 +22,7 @@
                 <div class="reg">
                     <a href="###" @click="btnreg">立即注册</a>
                     <span> | </span>
-                    <a href="###">忘记密码</a>
+                    <a href="###" @click="btnpwd">忘记密码</a>
                 </div>
                 <div class="btn" @click="btn">
                     登录
@@ -126,31 +126,7 @@
                                 this.text = ' 认证信息错误'
                             }
                         });
-                        // var xhr = new XMLHttpRequest()
-                        // xhr.open('get', `http://10.3.132.145/login/pwd?tel=${this.tel}&pwd=${this.pwd}`)
-                        // xhr.send()
-                        // xhr.onreadystatechange = () => {
-                        //     if (xhr.readyState == 4) {
-                        //         if (xhr.status == 200) {
-                        //             console.log(xhr.responseText);
-                        //             if (xhr.responseText == "yes") {
-                        //                 this.text = ''
-                        //                 this.showok = false
-
-                        //                 localStorage.setItem("tel", this.tel)
-                        //                 //    this.$router.push({name:'home'})
-                        //             } else {
-                        //                 this.show = !this.telok
-                        //                 this.text = ' 认证信息错误'
-
-                        //             }
-
-
-                        //         } else {
-                        //             alert('错误http状态码是：' + xhr.status);
-                        //         }
-                        //     }
-                        // }
+                   
                     }
                 } else {
                     this.text = '密码不能为空'
@@ -160,6 +136,12 @@
             btnreg() {
                 this.$router.push({
                     name: "reg"
+                })
+            },
+            // 修改密码
+            btnpwd(){
+                this.$router.push({
+                    name:'duan'
                 })
             }
         }

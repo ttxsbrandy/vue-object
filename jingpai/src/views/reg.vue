@@ -56,12 +56,35 @@
           </dl>
           <dl>
             <dt>
-              <span class="required" style="color: red;">*</span>用户名：
+              <span class="required" style="color: red;">*</span>短信验证码：
             </dt>
             <dd>
               <input
                 type="text"
                 id="smsCode"
+                placeholder="请输入短信验证码"
+                @blur="smsCode"
+                v-model="duannums"
+              />
+              <input
+                id="sendsmsCode"
+                type="button"
+                value="获取验证码"
+                style="height: 30px; background: #e4e4e4; "
+                @click="btnDuan"
+              />
+              <p v-text="textnum" :style="shownumA?{color:'#195'}: {color:'red'}"></p>
+            </dd>
+            <div class="clears"></div>
+          </dl>
+          <dl>
+            <dt>
+              <span class="required" style="color: red;">*</span>用户名：
+            </dt>
+            <dd>
+              <input
+                type="text"
+                id="smsCode1"
                 placeholder="请输入用户名"
                 style="width:220px"
                 v-model="name"
@@ -158,10 +181,16 @@ export default {
       // 用户名提示
       textname: "",
       showname: false,
-      nameok: false
+      nameok: false,
+      // 短信验证
+      duannums: "",
+      textnum: "",
+      shownumA: false,
+      nums: ""
     };
   },
   methods: {
+    // 验证手机号是否注册
     async confirmTel() {
       this.phoneshow = true;
       if (this.phoneRegex.test(this.telphone)) {
@@ -185,7 +214,7 @@ export default {
         this.show = false;
       }
     },
-
+    // 随机验证码
     btntext() {
       this.verifytext = parseInt(Math.random() * 9000 + 1000);
     },
@@ -211,7 +240,7 @@ export default {
         this.showname = false;
       }
     },
-    // 验证密码
+    // 验证码是否正确
     verifyNnm() {
       if (this.validateCode == this.verifytext) {
         this.num = "验证码输入正确";
@@ -221,6 +250,37 @@ export default {
         this.shownum = false;
       }
     },
+    // 发送短信
+    async btnDuan() {
+      if (this.show) {
+        await this.$axios({
+          method: "post",
+          url: "http://10.3.132.145:3300/duan/xin",
+          data: this.$qs.stringify({
+            tel: this.tel
+          })
+        }).then(res => {
+          console.log(res.data);
+          console.log(res.data.nums);
+          if (res.data.jsonObj.reason == "操作成功") {
+            this.nums = res.data.nums;
+          } else {
+          }
+        });
+      }
+    },
+    // 短信验证是否正确
+    smsCode() {
+      if (this.duannums == this.nums) {
+        this.isok = true;
+        this.textnum = "短信验证成功";
+        this.shownumA = true;
+      } else {
+        this.textnum = "您输入的验证码有误";
+        this.shownumA = false;
+      }
+    },
+    // 两次密码是否一致
     confirmPwd() {
       if (this.password === this.passwordChec) {
         this.showpwd = true;
@@ -231,6 +291,7 @@ export default {
         this.pwd = "两次密码输入不一样";
       }
     },
+    // 注册
     async sub() {
       if (this.isok && this.nameok && this.telok) {
         await this.$axios({
@@ -272,7 +333,6 @@ export default {
   }
 };
 </script>
-
 
 
 <style scoped>

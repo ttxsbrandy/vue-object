@@ -88,6 +88,7 @@
             </ul>
           </div>
         </div>
+
         <img
           src="http://www.jingpai.com/public/images/d9/0d/c8/ce2dcffa1f6f5518e46db29f13ae9515192a7694.jpg?1488762384"
           alt
@@ -99,6 +100,7 @@
         />
       </div>
     </div>
+
     <!-- 导航 -->
     <nav>
       <div class="content">
@@ -241,9 +243,11 @@ header #header-right ul #log {
   margin-left: 10px;
   line-height: 30px;
 }
+
 header #header-right ul li {
   cursor: pointer;
 }
+
 header #header-right ul #log img {
   margin: 8px 10px;
   float: left;
@@ -463,13 +467,16 @@ nav #goods .goodtype:hover {
 nav #goods #shouye {
   position: relative;
 }
+
 nav #goods #shouye img {
   position: absolute;
   margin-top: -10px;
 }
+
 nav #goods #huiyuan {
   position: relative;
 }
+
 nav #goods #huiyuan img {
   position: absolute;
   margin-top: -10px;

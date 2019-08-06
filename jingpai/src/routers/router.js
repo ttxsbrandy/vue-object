@@ -1,19 +1,32 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-const Cart = () => import('../views/Cart.vue');
+import LieBiao from '../views/LieBiao.vue'
+// const Cart = () => import('../views/Cart.vue');
 const Cart2 = () => import('../views/Cart2.vue');
 
+import Xqing from '../views/Xqing.vue'
 Vue.use(Router)
 
 export default new Router({
   // mode: 'history',
   base: process.env.BASE_URL,
   routes: [
+    {  
+      name: 'liebiao',
+      path: '/liebiao',    
+      component: LieBiao
+    },
+    
+    {   name:'xqing',
+        path:'/xqing/:id/:name',
+        component: Xqing
+      
+    },
 
     {
       path: '/car',
       name: 'car',
-      component: Cart
+      component: () => import('../views/Cart.vue')
     },
     {
       path: '/car2',
@@ -28,7 +41,28 @@ export default new Router({
     {
       path: '/detail',
       name: 'detail',
-      component: () => import('../views/Detail.vue')
+      component: () => import('../views/Detail.vue'),
+      children: [{
+          path: 'det',
+          name: 'det',
+          component: () => import('../views/optionCard/det.vue')
+        }, {
+          path: 'commend',
+          name: 'commend',
+          component: () => import('../views/optionCard/commend.vue')
+        }, {
+          path: 'consult',
+          name: 'consult',
+          component: () => import('../views/optionCard/consult.vue')
+        },
+        {
+          path: '/detail',
+          redirect: () => {
+            return '/detail/det'
+          }
+        }
+      ]
+
     }, {
       path: '/',
       alias: 'index.html',
@@ -44,6 +78,11 @@ export default new Router({
       path: '/reg',
       name: 'reg',
       component: () => import('../views/reg.vue')
+    },
+    {
+      path:'/duan',
+      name:'duan',
+      component:()=>import('../views/duanxin.vue')
     }
   ]
 })

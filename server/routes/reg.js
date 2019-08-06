@@ -85,6 +85,26 @@ console.log(tel,pwd,name);
 })
 
 
+// 修改秘密
+
+
+router.post('/updata',function(req, res, next){
+    res.append('Access-Control-Allow-Origin', '*')
+    let {tel,pwd}= req.body
+    console.log(tel,pwd);
+    (async()=>{
+        if(tel&& pwd){
+         let data =  await updata('username',{tel},{pwd})
+            console.log(data);
+            res.send('yes')
+        }else{
+            res.send('no')
+        }
+    })()
+
+
+})
+
 
 
 module.exports = router;

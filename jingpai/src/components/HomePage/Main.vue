@@ -12,12 +12,12 @@
         <!-- 主要内容 -->
         <main>
             <div class="content">
-                <div v-for="t in typeList" class="imgs">
+                <div v-for="(t,index) in typeList" class="imgs" :key="index">
                     <div><img :src="t.timg" alt=""></div>
                     <div><img :src="t.bigimg" alt="">
                     </div>
                     <div>
-                        <img v-for="s in t.smallimg" :src="s.goodimg" alt="" >
+                        <img v-for="(s,i) in t.smallimg" :src="s.goodimg" alt="" :key="i">
                     </div>
 
                 </div>
@@ -51,9 +51,8 @@
                 })
             }
         },async created() {
-            let typeList = await this.$axios("http://localhost:3000/typeList/find");
+            let typeList = await this.$axios("http://localhost:3300/typeList/find");
                 this.typeList=typeList.data;
-                console.log(this.typeList);
         }
     }
 </script>
