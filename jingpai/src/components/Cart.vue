@@ -195,7 +195,7 @@
           <b>您的购物车里还没有商品</b>，您可以：
           <br />将
           <a href="/member-favorite.html">收藏夹</a>中的商品添加进来，或者去看看
-          <a href="./" >商城 »</a>
+          <a href="./">商城 »</a>
         </p>
       </div>
     </div>
@@ -232,21 +232,24 @@ export default {
         tel
       }
     });
+    // console.log(cardata.data);
     cardata.data.forEach(async item => {
-      let good = await this.$axios("http://localhost:3300/car/carlist", {
+      let good = await this.$axios("http://10.3.132.48:3300/car/carlist", {
         params: {
           gid: item.goodid
         }
       });
       good.data[0].num = item.num;
       this.carlist.push(good.data[0]);
-    });
-
-    if (this.carlist.length) {
+      // console.log(this.carlist.length); 
+      if (this.carlist.length) {
       this.show = true;
     } else {
       this.show = false;
     }
+    });
+
+   
   },
 
   methods: {
@@ -373,9 +376,6 @@ export default {
     }
   }
 
-  .steps .active a,
-  .steps .active .icon {
-  }
   .steps .step-item {
     background-color: #efefef;
     padding: 0px 5px;

@@ -3,7 +3,7 @@ import App from './App.vue'
 import router from './routers/router'
 import store from './stores/store'
 import './registerServiceWorker'
-// import './base_px.css'
+import './base_px.css'
 import 'vant/lib/index.css'
 // import iView from 'iview';
 import 'iview/dist/styles/iview.css'; // 使用 CSS

@@ -1,78 +1,85 @@
 <template>
-
   <div class="lbox">
-        <div class="lb">
-            <div class="sp">
-                <span>商品筛选</span><span></span>
-                <a href="">重新筛选项></a>
-            </div>
-            <div class="xuze">您已选择:</div>
-            <div class="fl"><b>分类：</b><span>聚会分享</span> <span>坛藏佳酿</span></div>
-            <div class="pp"><b>品牌：</b>
-              <span  @click="test1()">劲牌</span><span @click="test2()">毛铺</span><span @click="test3()">枫林</span><span @click="test4()">金眼牌</span></div>
-
-        </div>
-
-        <div class="st">
-            <button>默认</button> <button @click="sortByKey()">价格</button> <button @click="sortByKey6()">销量</button> <span>排序:</span>
-            <select name="" id="">
-                <option value="">默认</option>
-                <option value="" @click=" sortByKey8()">价格从低到高</option>
-                <option value="" >价格从高到低</option>
-                <option value="" >访问周次数</option>
-            </select>
-            <input type="checkbox" name="" id="fxun"> &nbsp;仅显示有货
-             <div class="sx"> 筛选:<input type="checkbox" name="" id=""> 最新商品 </div>
-        </div>
-       
-        <!-- 列表页 -->
-        <div class="list">
-            <ul>
-                 <li v-for="(value,index) in jinpais" :key=" 'tr1'+ index"  v-show="show1">
-                    <img :src="value.img" alt=""  @click="navTo(value.url)">                 
-                    <a href="" v-text="value.title"></a>
-                    <span>￥{{value.price}}</span> <del>￥{{value.dprice}}</del>
-                    <div class="gw"  @click="navTo(value.url)">加入购物车</div>
-                </li>
-                 
-                 <li v-for="(value,index) in arr2" :key=" 'tr2'+  index"  v-show="show2">
-                    <img :src="value.img" alt=""  @click="navTo(value.url)">                 
-                    <a href="" v-text="value.title"></a>
-                    <span>￥{{value.price}}</span> <del>￥{{value.dprice}}</del>
-                    <div class="gw"  @click="navTo(value.url)">加入购物车</div>
-                </li>
-
-                 <li v-for="(value,index) in arr3" :key=" 'tr3'+ index"  v-show="show3">
-                    <img :src="value.img" alt=""  @click="navTo(value.url)">                 
-                    <a href="" v-text="value.title"></a>
-                    <span>￥{{value.price}}</span> <del>￥{{value.dprice}}</del>
-                    <div class="gw"  @click="navTo(value.url)">加入购物车</div>
-                </li>
-
-                <li v-for="(value,index) in arr4" :key=" 'tr4'+ index"  v-show="show4">
-                    <img :src="value.img" alt=""  @click="navTo(value.url)">                 
-                    <a href="" v-text="value.title"></a>
-                    <span>￥{{value.price}}</span> <del>￥{{value.dprice}}</del>
-                    <div class="gw"  @click="navTo(value.url)">加入购物车</div>
-                </li> 
-
-               
-            </ul>
-           
-        </div>
-        <div class="pg">
-            <!-- 分页 -->
-             <van-pagination 
-            v-model="currentPage" 
-            :total-items="4" 
-            :items-per-page="2"
-              />
-        </div> 
-         
-       
+    <div class="lb">
+      <div class="sp">
+        <span>商品筛选</span>
+        <span></span>
+        <a href>重新筛选项></a>
+      </div>
+      <div class="xuze">您已选择:</div>
+      <div class="fl">
+        <b>分类：</b>
+        <span>聚会分享</span>
+        <span>坛藏佳酿</span>
+      </div>
+      <div class="pp">
+        <b>品牌：</b>
+        <span @click="test1()">劲牌</span>
+        <span @click="test2()">毛铺</span>
+        <span @click="test3()">枫林</span>
+        <span @click="test4()">金眼牌</span>
+      </div>
     </div>
-    
-  
+
+    <div class="st">
+      <button>默认</button>
+      <button @click="sortByKey()">价格</button>
+      <button @click="sortByKey6()">销量</button>
+      <span>排序:</span>
+      <select name id>
+        <option value>默认</option>
+        <option value @click=" sortByKey8()">价格从低到高</option>
+        <option value>价格从高到低</option>
+        <option value>访问周次数</option>
+      </select>
+      <input type="checkbox" name id="fxun" /> &nbsp;仅显示有货
+      <div class="sx">
+        筛选:
+        <input type="checkbox" name id /> 最新商品
+      </div>
+    </div>
+
+    <!-- 列表页 -->
+    <div class="list">
+      <ul>
+        <li v-for="(value,index) in jinpais" :key=" 'tr1'+ index" v-show="show1">
+          <img :src="value.img" alt @click="navTo(value.url)" />
+          <a href v-text="value.title"></a>
+          <span>￥{{value.price}}</span>
+          <del>￥{{value.dprice}}</del>
+          <div class="gw" @click="navTo(value)">加入购物车</div>
+        </li>
+
+        <li v-for="(value,index) in arr2" :key=" 'tr2'+  index" v-show="show2">
+          <img :src="value.img" alt @click="navTo(value.url)" />
+          <a href v-text="value.title"></a>
+          <span>￥{{value.price}}</span>
+          <del>￥{{value.dprice}}</del>
+          <div class="gw" @click="navTo(value)">加入购物车</div>
+        </li>
+
+        <li v-for="(value,index) in arr3" :key=" 'tr3'+ index" v-show="show3">
+          <img :src="value.img" alt @click="navTo(value.url)" />
+          <a href v-text="value.title"></a>
+          <span>￥{{value.price}}</span>
+          <del>￥{{value.dprice}}</del>
+          <div class="gw" @click="navTo(value)">加入购物车</div>
+        </li>
+
+        <li v-for="(value,index) in arr4" :key=" 'tr4'+ index" v-show="show4">
+          <img :src="value.img" alt @click="navTo(value.url)" />
+          <a href v-text="value.title"></a>
+          <span>￥{{value.price}}</span>
+          <del>￥{{value.dprice}}</del>
+          <div class="gw" @click="navTo(value)">加入购物车</div>
+        </li>
+      </ul>
+    </div>
+    <div class="pg">
+      <!-- 分页 -->
+      <van-pagination v-model="currentPage" :total-items="4" :items-per-page="2" />
+    </div>
+  </div>
 </template>
 
 
@@ -82,25 +89,24 @@ export default {
     return {
       jinpais: "",
       arr2: "",
-      arr3:'',
-      arr4:'',
+      arr3: "",
+      arr4: "",
       url: "xqing",
       isok: false,
       currentPage: 1,
-      show1:1,
-      show2:false,
-      show3:false,
-      show4:false,
-      
+      show1: 1,
+      show2: false,
+      show3: false,
+      show4: false
     };
   },
   async created() {
-    let julists = await this.$axios("http://localhost:3300/list/goodlist");
+    let julists = await this.$axios("http://10.3.132.48:3300/list/goodlist");
     this.jinpais = julists.data;
     console.log(julists);
-    
+
     //查找商品
-    
+
     let arr2 = [];
     julists.data.forEach((item, index) => {
       if (item.fl == "毛") {
@@ -108,7 +114,7 @@ export default {
       }
     });
     this.arr2 = arr2;
-    
+
     //查找金眼牌
     let arr3 = [];
     julists.data.forEach((item, index) => {
@@ -127,10 +133,7 @@ export default {
     this.arr4 = arr4;
 
     //分页
-      
-
   },
-
 
   computed: {
     sortByKey1() {
@@ -155,7 +158,6 @@ export default {
         this.isok = true;
         this.jinpais = this.sortByKey2;
       }
-      
     },
     sortByKey6() {
       if (this.isok) {
@@ -165,49 +167,63 @@ export default {
         this.isok = true;
         this.jinpais = this.sortByKey4;
       }
-     
     },
-     sortByKey8(){
-        return this.jinpais.sort((a, b) => a.price - b.price); //价格升序
-     },
+    sortByKey8() {
+      return this.jinpais.sort((a, b) => a.price - b.price); //价格升序
+    },
 
     test1() {
-      
-      this.show1 =1;
+      this.show1 = 1;
       this.show2 = false;
-      this.show3 =false;
+      this.show3 = false;
       this.show4 = false;
     },
     test2() {
-      
-      this.show1 =false;
+      this.show1 = false;
       this.show2 = 1;
-      this.show3 =false;
+      this.show3 = false;
       this.show4 = false;
     },
     test3() {
-     
-       this.show1 =false;
+      this.show1 = false;
       this.show2 = false;
       this.show3 = 1;
       this.show4 = false;
     },
     test4() {
-      
-      this.show1 =false;
+      this.show1 = false;
       this.show2 = false;
       this.show3 = false;
       this.show4 = 1;
     },
 
-
-
-
-    navTo(name) {
+    async navTo(name) {
       // 编程式导航
-      this.$router.push({
-        name
-      });
+      let tel = localStorage.getItem("tel");
+      console.log(name.gid);
+      if (tel) {
+        let result = await this.$axios("http://localhost:3300/car/add", {
+          params: {
+            gid: name.gid,
+            tel,
+            num: 1
+          }
+        });
+
+        if (result.data.ok) {
+          // console.log("成功");
+          let res = confirm("成功加入购物车，去购物车结算？");
+          if (res) {
+            this.$router.push({ name: "car" });
+          }
+        }
+      } else {
+        let res = confirm("您还没登陆，请先登陆");
+        if (res) {
+          this.$router.push({ name: "login" });
+        }
+      }
+      // console.log(name);
     }
   }
 };
@@ -327,25 +343,24 @@ a {
   border-bottom: 1px solid#666;
   box-sizing: border-box;
   cursor: pointer;
-  background:red;
-  width:30px;
+  background: red;
+  width: 30px;
 }
-.lbox #fxun{
-  margin-left:15px;
+.lbox #fxun {
+  margin-left: 15px;
 }
-.lbox  .sx{
-  height:30px;
-  line-height:30px;
-  border:1px solid#ccc;
+.lbox .sx {
+  height: 30px;
+  line-height: 30px;
+  border: 1px solid#ccc;
   border-top: none;
-  padding-left:20px;
+  padding-left: 20px;
   box-sizing: border-box;
- 
 }
 .sx input {
-  line-height:30px;
-  margin-left:10px;
-  margin-top:5px;
+  line-height: 30px;
+  margin-left: 10px;
+  margin-top: 5px;
 }
 
 .lbox .st {
@@ -358,12 +373,11 @@ a {
   border-bottom: 1px solid#ccc;
   box-sizing: border-box;
   margin-bottom: 40px;
-  color:#666;
-  font-size:12px;
-
+  color: #666;
+  font-size: 12px;
 }
-.lbox .st option{
-  color:12px;
+.lbox .st option {
+  color: 12px;
 }
 
 .lbox .st button {
@@ -398,7 +412,6 @@ a {
 
 .list ul li:hover {
   border: 5px solid pink;
- 
 }
 
 .list ul li img {
